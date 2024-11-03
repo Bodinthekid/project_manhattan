@@ -1,6 +1,9 @@
 from operators.dev_library import get_driver, get_soup
 import time
 import requests
+# import numpy as np
+
+
 
 # Teste do Selenium
 driver = get_driver(headless=False)  # Defina headless=True para não abrir a interface gráfica
@@ -26,3 +29,4 @@ if response.status_code == 200:
     print("Resposta:", data)
 else:
     print("Erro:", response.status_code) 
+
