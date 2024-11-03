@@ -25,4 +25,4 @@ if response.status_code == 200:
     data = response.json()
     print("Resposta:", data)
 else:
-    print("Erro:", response.status_code)
+    print("Erro:", response.status_code) 
