@@ -10,6 +10,7 @@ pandas = "*"
 webdriver-manager = "*"
 requests = "*"
 pdf2text = "*"
+numpy = "*"
 
 [dev-packages]
 
