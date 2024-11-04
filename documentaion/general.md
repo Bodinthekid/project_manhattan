@@ -1,8 +1,5 @@
-Instalação
-    pip install requests
 
-
-1. Realizando Requisições para APIs
+# 1. Realizando Requisições para APIs
 Para consumir dados de uma API, geralmente usamos o método GET para recuperar dados ou POST para enviar dados.
 Exemplo de Requisição GET
 
@@ -17,7 +14,7 @@ Exemplo de Requisição GET
         print("Erro na requisição:", response.status_code)
 
 
-2. Trabalhando com PDFs
+# 2. Trabalhando com PDFs
 Para baixar arquivos PDF com requests, basta fazer uma requisição GET e salvar o conteúdo.
 
     url = "https://www.exemplo.com/arquivo.pdf"
@@ -29,7 +26,7 @@ Para baixar arquivos PDF com requests, basta fazer uma requisição GET e salvar
 
 Para manipular o conteúdo de PDFs, bibliotecas como PyPDF2 ou pdfplumber são recomendadas.
 
-3. Trabalhando com CSVs
+# 3. Trabalhando com CSVs
 Para baixar e salvar dados em CSV, você pode usar requests para obter o conteúdo e a biblioteca csv ou pandas para salvar ou processar.
 
     import csv
@@ -59,7 +56,7 @@ dados = {"chave": "valor"}
 with open("dados.json", "w") as f:
     json.dump(dados, f)
 
-5. Abrindo Arquivos JSON, PDF e CSV
+# 5. Abrindo Arquivos JSON, PDF e CSV
 Abrindo JSON
 
     import json
@@ -68,7 +65,7 @@ Abrindo JSON
         dados = json.load(f)
 
 
-Abrindo PDF
+# Abrindo PDF
 
 Para leitura de PDF, use bibliotecas como pdftotext
 
@@ -78,3 +75,20 @@ Abrindo CSV
     import pandas as pd
 
     df = pd.read_csv("dados.csv")
+
+# extrair df de um pdf 
+
+import pdfplumber
+import pandas as pd
+
+with pdfplumber.open("caminho/para/seu_arquivo.pdf") as pdf:
+
+    # Seleciona a página que contém a tabela
+    page = pdf.pages[0]  # Mude o índice conforme necessário
+
+    # Extrai a tabela
+    tabela = page.extract_table()
+
+    # Converte para DataFrame
+    df = pd.DataFrame(tabela[1:], columns=tabela[0])  # Usa a primeira linha como cabeçalhos
+    print(df)

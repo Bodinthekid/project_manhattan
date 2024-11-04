@@ -11,6 +11,16 @@ webdriver-manager = "*"
 requests = "*"
 pdf2text = "*"
 numpy = "*"
+bs4 = "*"
+datetime = "*"
+pangres = "*"
+ixbrlparse = "*"
+tabulate = "*"
+pdfplumber = "*"
+openpyxl = "*"
+sqlalchemy = "*"
+pymysql = "*"
+mysql-connector-python = "*"
 
 [dev-packages]
 
