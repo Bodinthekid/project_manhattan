@@ -3,6 +3,8 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 import requests
 from bs4 import BeautifulSoup
+from operators.db_connection import create_connection 
+import pandas as pd 
 
 def get_driver(headless=False):
     """
@@ -44,3 +46,50 @@ def get_soup(url):
         return soup
     else:
         raise Exception(f"Failed to retrieve page: {response.status_code}")
+
+def upload_data_in_batches_simple(df, table_name, batch_size=10):
+    conn = create_connection()
+    cursor = conn.cursor()
+
+    # Preparando a query de inserção
+    query = f"INSERT INTO {table_name} ({', '.join(df.columns)}) VALUES ({', '.join(['%s'] * len(df.columns))})"
+    
+    # Inserir dados em lotes
+    for i in range(0, len(df), batch_size):
+        # Seleciona o lote de dados
+        batch = df.iloc[i:i + batch_size].values.tolist()
+        
+        # Executa a inserção em lote
+        cursor.executemany(query, batch)
+        conn.commit()
+
+    # Fechar conexão
+    cursor.close()
+    conn.close()
+
+def get_columns_as_dataframe(table_name, columns):
+    """
+    Obtém colunas específicas de uma tabela no banco de dados e retorna os resultados em um DataFrame.
+
+    Parâmetros:
+        table_name (str): Nome da tabela do banco de dados.
+        columns (list): Lista dos nomes das colunas que deseja buscar.
+
+    Retorna:
+        DataFrame: DataFrame com as colunas solicitadas.
+    """
+    conn = create_connection()  # Conecta ao banco de dados
+    
+    try:
+        # Formata a query de seleção
+        query = f"SELECT {', '.join(columns)} FROM {table_name}"
+        
+        # Executa a query e carrega o resultado em um DataFrame
+        df = pd.read_sql(query, conn)
+    except Exception as e:
+        print(f"Erro ao obter colunas da tabela: {e}")
+        df = pd.DataFrame()  # Retorna um DataFrame vazio em caso de erro
+    finally:
+        conn.close()
+    
+    return df
