@@ -33,12 +33,12 @@ for url in url_list:
     team_data = team_data_raw.get('teams')
     general_data_list.extend(team_data)
     
-# df_teams = pd.DataFrame(general_data_list)
-# print(df_teams)
+df_teams = pd.DataFrame(general_data_list)
+print(df_teams)
 
 
-with open(file_name, "w", encoding="utf-8") as f:
-    json.dump(general_data_list, f, ensure_ascii=False, indent=4)
+# with open(file_name, "w", encoding="utf-8") as f:
+#     json.dump(general_data_list, f, ensure_ascii=False, indent=4)
 
 
 print('done')
