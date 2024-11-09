@@ -1,5 +1,5 @@
 import pandas as pd
-from operators.dev_library import upload_data_in_batches_simple
+from operators.dev_library import upload_data_in_batches_simple, get_columns_as_dataframe
 
 # Criando um DataFrame simples com os dados que você deseja inserir
 data = {
@@ -15,4 +15,6 @@ df_test = pd.DataFrame(data)
 table_name = 'pessoas'  # Nome da tabela onde os dados serão inseridos
 upload_data_in_batches_simple(df_test, table_name)
 
+df = get_columns_as_dataframe(table_name,['idade','nome'])
+print(df)
 print('done')

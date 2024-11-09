@@ -49,11 +49,15 @@ def get_soup(url):
 
 def upload_data_in_batches_simple(df, table_name, batch_size=10):
     conn = create_connection()
+    
     cursor = conn.cursor()
 
     # Preparando a query de inserção
-    query = f"INSERT INTO {table_name} ({', '.join(df.columns)}) VALUES ({', '.join(['%s'] * len(df.columns))})"
-    
+    query = f"""
+    INSERT IGNORE INTO {table_name} ({', '.join(df.columns)}) 
+    VALUES ({', '.join(['%s'] * len(df.columns))})
+    """
+
     # Inserir dados em lotes
     for i in range(0, len(df), batch_size):
         # Seleciona o lote de dados
