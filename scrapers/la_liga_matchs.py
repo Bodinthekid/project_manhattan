@@ -3,6 +3,7 @@
 # # https://www.bbc.com/sport/football/spanish-la-liga/table
 # # https://www.soccerstats.com/latest.asp?league=spain
 # https://onefootball.com/en/competition/laliga-10/table
+# https://www.whoscored.com/Regions/206/Tournaments/4/Seasons/10317/Stages/23401/Show/Spain-LaLiga-2024-2025
 
 
 from operators.dev_library import get_driver, get_soup
@@ -14,8 +15,9 @@ import requests
 
 
 # Teste do Selenium
-driver = get_driver(headless=False)  # Defina headless=True para não abrir a interface gráfica
-driver.get("https://onefootball.com/en/competition/laliga-10/results")
+URL = "https://onefootball.com/en/competition/laliga-10/results"
+driver = get_driver(url=URL,headless=False)  # Defina headless=True para não abrir a interface gráfica
+
 print("Título da página:", driver.title)
 time.sleep(3)
 
@@ -24,4 +26,7 @@ print(all_matches.text)
 
 
 time.sleep(3)
-driver.quit()
+try:
+    driver.dispose()
+except Exception as e:
+    print(e)
