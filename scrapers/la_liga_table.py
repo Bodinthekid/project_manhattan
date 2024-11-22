@@ -42,4 +42,8 @@ def df_from_website(driver):
 
 df = df_from_website(driver)
 
-print(df)
+print(df.columns.values)
+
+new_columns = {'Team': 'team_name', 'P': 'played', 'W':'wins'}
+
+df = df.rename(columns = new_columns, inplace=True)
