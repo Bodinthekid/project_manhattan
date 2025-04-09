@@ -1,6 +1,7 @@
 
 CREATE TABLE la_liga_teams (
-    `team_id` VARCHAR(20) PRIMARY KEY NOT NULL,       -- Identificador único para cada time
+    `team_id` VARCHAR(20) NULL,       -- Identificador único para cada time
+    `internal_team_id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,       -- Identificador único para cada time
     `api_id` VARCHAR(10) NULL,                        -- ID do time na API de futebol
     `team_name` VARCHAR(80) NOT NULL,                 -- Nome do time
     `alternative_team_name` VARCHAR(80) NULL,
